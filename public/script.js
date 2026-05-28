@@ -4,10 +4,9 @@
 // Handles: navbar, form submission, animations,
 // counter, toast, local storage fallback, etc.
 
-// ── Config ────────────────────────────────
-// Change this to your deployed backend URL in production
-// e.g. "https://she-can-api.onrender.com"
-const API_BASE = window.location.origin;
+const API_BASE = window.location.origin === "null" || window.location.protocol === "file:" || (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "3000"
+  ? "http://localhost:3000"
+  : window.location.origin;
 
 // ── Init on DOM Ready ─────────────────────
 document.addEventListener("DOMContentLoaded", () => {

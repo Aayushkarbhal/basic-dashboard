@@ -166,7 +166,7 @@ app.post("/api/contact", async (req, res) => {
     console.error("❌ /api/contact error:", err.message);
     return res.status(500).json({
       success: false,
-      message: "Server error. Please try again later.",
+      message: `Server error: ${err.message}`,
     });
   }
 });
@@ -213,7 +213,7 @@ app.get("/api/admin/submissions", async (req, res) => {
     console.error("❌ /api/admin/submissions error:", err.message);
     return res.status(500).json({
       success: false,
-      message: "Server error fetching submissions.",
+      message: `Server error fetching submissions: ${err.message}`,
     });
   }
 });
