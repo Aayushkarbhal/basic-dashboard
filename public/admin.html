@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | She Can Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Simple top bar -->
+  <nav class="navbar scrolled">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">She<em>Can</em></span>
+      </a>
+      <a href="index.html" class="btn btn-outline" style="margin-left:auto">← Back to Site</a>
+    </div>
+  </nav>
+
+  <main class="admin-page">
+    <div class="container">
+
+      <!-- Header row -->
+      <div class="admin-header">
+        <div>
+          <span class="section-label">Dashboard</span>
+          <h1 class="section-title" style="margin-bottom:0">Submissions Panel</h1>
+        </div>
+        <div class="admin-controls">
+          <input type="text" id="searchInput" placeholder="🔍 Search name, email, city…" />
+          <button class="btn btn-primary" id="refreshBtn">
+            <i data-lucide="refresh-cw"></i> Refresh
+          </button>
+          <button class="btn btn-outline" id="exportBtn">
+            <i data-lucide="download"></i> Export CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Mini stats -->
+      <div class="stats-row" id="statsRow">
+        <div class="mini-stat"><div class="num" id="statTotal">–</div><div class="lbl">Total Submissions</div></div>
+        <div class="mini-stat"><div class="num" id="statVol">–</div><div class="lbl">Volunteers</div></div>
+        <div class="mini-stat"><div class="num" id="statToday">–</div><div class="lbl">Today</div></div>
+        <div class="mini-stat"><div class="num" id="statLocal">–</div><div class="lbl">Saved Locally</div></div>
+      </div>
+
+      <!-- Secret key input (simple auth) -->
+      <div id="authSection" class="glass-card" style="padding:1.5rem;margin-bottom:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+        <label style="font-weight:600;font-size:.9rem" for="adminKey">Admin Secret Key:</label>
+        <input type="password" id="adminKey" placeholder="Enter admin secret…" style="flex:1;min-width:200px;padding:.6rem 1rem;border-radius:8px;border:1.5px solid #e9d5ff;font-family:inherit" />
+        <button class="btn btn-primary" id="loadBtn">Load Submissions</button>
+        <span style="font-size:.8rem;color:var(--text-muted)">Set in .env → ADMIN_SECRET</span>
+      </div>
+
+      <!-- Tabs: Live DB vs LocalStorage -->
+      <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap" role="tablist">
+        <button class="btn btn-primary tab-btn" id="tabDB" role="tab" aria-selected="true" data-tab="db">
+          <i data-lucide="database"></i> Live Database
+        </button>
+        <button class="btn btn-outline tab-btn" id="tabLocal" role="tab" aria-selected="false" data-tab="local">
+          <i data-lucide="hard-drive"></i> Local Storage <span id="localBadge"></span>
+        </button>
+      </div>
+
+      <!-- Table: DB submissions -->
+      <div id="dbSection">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Interest</th>
+                <th>Volunteer?</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr class="loading-row">
+                <td colspan="8">Click "Load Submissions" to fetch data 💜</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Table: LocalStorage submissions -->
+      <div id="localSection" style="display:none">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Interest</th>
+                <th>Volunteer?</th>
+                <th>Saved At</th>
+              </tr>
+            </thead>
+            <tbody id="localTableBody">
+              <tr class="loading-row"><td colspan="8">No local submissions yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1rem;display:flex;gap:.75rem">
+          <button class="btn btn-outline" id="clearLocalBtn" style="color:var(--rose-500);border-color:var(--rose-500)">
+            <i data-lucide="trash-2"></i> Clear Local Storage
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon" id="toastIcon"></span>
+    <span class="toast-message" id="toastMessage"></span>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    const API_BASE = window.location.origin;
+    let allSubmissions = [];
+
+    // ── Auth + Load ──────────────────────────
+    document.getElementById("loadBtn").addEventListener("click", loadSubmissions);
+    document.getElementById("adminKey").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loadSubmissions();
+    });
+
+    async function loadSubmissions() {
+      const secret = document.getElementById("adminKey").value.trim();
+      const search = document.getElementById("searchInput").value.trim();
+      const tbody  = document.getElementById("tableBody");
+      tbody.innerHTML = `<tr class="loading-row"><td colspan="8">Loading… ⏳</td></tr>`;
+
+      try {
+        const url = search
+          ? `${API_BASE}/api/admin/submissions?search=${encodeURIComponent(search)}`
+          : `${API_BASE}/api/admin/submissions`;
+
+        const res  = await fetch(url, { headers: { "x-admin-secret": secret } });
+        const data = await res.json();
+
+        if (!res.ok) {
+          showToast("❌ " + (data.message || "Access denied"), "error");
+          tbody.innerHTML = `<tr class="loading-row"><td colspan="8">❌ ${data.message || "Error loading data"}</td></tr>`;
+          return;
+        }
+
+        allSubmissions = data.submissions || [];
+        renderTable(allSubmissions);
+        updateStats(allSubmissions);
+        showToast(`✅ Loaded ${allSubmissions.length} submissions`, "success");
+      } catch (err) {
+        showToast("❌ Could not reach server. Is it running?", "error");
+        tbody.innerHTML = `<tr class="loading-row"><td colspan="8">⚠️ Server unreachable. Check your backend.</td></tr>`;
+      }
+    }
+
+    // ── Render Table ─────────────────────────
+    function renderTable(rows) {
+      const tbody = document.getElementById("tableBody");
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><p>🌸</p><p>No submissions found.</p></div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map((r, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td><strong>${esc(r.full_name)}</strong></td>
+          <td><a href="mailto:${esc(r.email)}" style="color:var(--pink-600)">${esc(r.email)}</a></td>
+          <td>${r.phone ? esc(r.phone) : "<span style='color:#ccc'>—</span>"}</td>
+          <td>${r.city ? esc(r.city) : "<span style='color:#ccc'>—</span>"}</td>
+          <td>${r.interest ? `<span style="background:var(--purple-100);color:var(--purple-600);padding:.2rem .6rem;border-radius:100px;font-size:.75rem;font-weight:600">${esc(r.interest)}</span>` : "—"}</td>
+          <td><span class="vol-badge ${r.volunteer ? 'yes' : 'no'}">${r.volunteer ? "✅ Yes" : "No"}</span></td>
+          <td style="font-size:.78rem;color:var(--text-muted)">${formatDate(r.created_at || r.saved_at)}</td>
+        </tr>
+      `).join("");
+    }
+
+    // ── Update Stats ─────────────────────────
+    function updateStats(rows) {
+      document.getElementById("statTotal").textContent = rows.length;
+      document.getElementById("statVol").textContent   = rows.filter(r => r.volunteer).length;
+      const today = new Date().toDateString();
+      document.getElementById("statToday").textContent = rows.filter(r => {
+        const d = new Date(r.created_at || r.saved_at);
+        return d.toDateString() === today;
+      }).length;
+    }
+
+    // ── Search / Filter ───────────────────────
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase();
+      if (!q) { renderTable(allSubmissions); return; }
+      const filtered = allSubmissions.filter(r =>
+        (r.full_name||"").toLowerCase().includes(q) ||
+        (r.email||"").toLowerCase().includes(q) ||
+        (r.city||"").toLowerCase().includes(q) ||
+        (r.interest||"").toLowerCase().includes(q)
+      );
+      renderTable(filtered);
+    });
+
+    document.getElementById("refreshBtn").addEventListener("click", loadSubmissions);
+
+    // ── Export CSV ────────────────────────────
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      if (!allSubmissions.length) { showToast("⚠️ No data to export.", "error"); return; }
+      const headers = ["ID","Name","Email","Phone","City","Interest","Volunteer","Date"];
+      const rows = allSubmissions.map(r => [
+        r.id, r.full_name, r.email, r.phone||"", r.city||"", r.interest||"",
+        r.volunteer ? "Yes" : "No",
+        formatDate(r.created_at)
+      ]);
+      const csv = [headers, ...rows].map(row => row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `submissions_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      showToast("✅ CSV exported!", "success");
+    });
+
+    // ── Tabs: DB vs LocalStorage ──────────────
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => {
+          b.classList.remove("btn-primary");
+          b.classList.add("btn-outline");
+          b.setAttribute("aria-selected","false");
+        });
+        btn.classList.add("btn-primary");
+        btn.classList.remove("btn-outline");
+        btn.setAttribute("aria-selected","true");
+
+        const tab = btn.getAttribute("data-tab");
+        document.getElementById("dbSection").style.display    = tab === "db"    ? "" : "none";
+        document.getElementById("localSection").style.display = tab === "local" ? "" : "none";
+
+        if (tab === "local") loadLocalStorage();
+      });
+    });
+
+    function loadLocalStorage() {
+      const data = JSON.parse(localStorage.getItem("sc_submissions") || "[]");
+      document.getElementById("statLocal").textContent = data.length;
+      document.getElementById("localBadge").textContent = data.length ? ` (${data.length})` : "";
+
+      const tbody = document.getElementById("localTableBody");
+      if (!data.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><p>📭</p><p>No locally saved submissions.</p></div></td></tr>`;
+        return;
+      }
+      // Reuse renderTable logic
+      tbody.innerHTML = data.map((r, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td><strong>${esc(r.full_name)}</strong></td>
+          <td>${esc(r.email)}</td>
+          <td>${r.phone || "—"}</td>
+          <td>${r.city || "—"}</td>
+          <td>${r.interest || "—"}</td>
+          <td><span class="vol-badge ${r.volunteer ? 'yes' : 'no'}">${r.volunteer ? "✅ Yes" : "No"}</span></td>
+          <td style="font-size:.78rem;color:var(--text-muted)">${formatDate(r.saved_at)}</td>
+        </tr>
+      `).join("");
+    }
+
+    document.getElementById("clearLocalBtn").addEventListener("click", () => {
+      if (!confirm("Clear all locally saved submissions? This cannot be undone.")) return;
+      localStorage.removeItem("sc_submissions");
+      loadLocalStorage();
+      showToast("🗑️ Local storage cleared.", "success");
+    });
+
+    // ── Init: check local badge ───────────────
+    const localData = JSON.parse(localStorage.getItem("sc_submissions") || "[]");
+    document.getElementById("statLocal").textContent = localData.length;
+    if (localData.length) document.getElementById("localBadge").textContent = ` (${localData.length})`;
+
+    // ── Helpers ───────────────────────────────
+    function esc(str) {
+      const d = document.createElement("div");
+      d.textContent = str || "";
+      return d.innerHTML;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "—";
+      return new Date(iso).toLocaleString("en-IN", {
+        day: "2-digit", month: "short", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    }
+
+    let toastTimer;
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      const msgEl = document.getElementById("toastMessage");
+      clearTimeout(toastTimer);
+      toast.className = `toast toast-${type} show`;
+      msgEl.textContent = message;
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 4000);
+    }
+  </script>
+</body>
+</html>

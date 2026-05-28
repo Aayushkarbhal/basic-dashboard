@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="She Can Foundation — Empowering women and girls through education, healthcare, and skills development."
+    />
+    <title>She Can Foundation | Empowering Women & Girls</title>
+
+    <!-- Google Fonts: Playfair Display (headings) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons (lightweight SVG icon set) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════════
+       NAVIGATION BAR
+  ══════════════════════════════════════════ -->
+    <nav
+      class="navbar"
+      id="navbar"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div class="nav-inner container">
+        <!-- Logo -->
+        <a href="#hero" class="nav-logo" aria-label="She Can Foundation home">
+          <span class="logo-icon">✦</span>
+          <span class="logo-text">She<em>Can</em></span>
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#volunteer">Volunteer</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="admin.html" class="nav-admin">Admin</a></li>
+        </ul>
+
+        <!-- Donate CTA -->
+        <a href="#contact" class="btn btn-primary nav-cta">Get Involved</a>
+
+        <!-- Hamburger (mobile) -->
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Drawer -->
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <ul role="list">
+          <li><a href="#about" class="mobile-link">About</a></li>
+          <li><a href="#impact" class="mobile-link">Impact</a></li>
+          <li><a href="#programs" class="mobile-link">Programs</a></li>
+          <li><a href="#volunteer" class="mobile-link">Volunteer</a></li>
+          <li><a href="#contact" class="mobile-link">Contact</a></li>
+          <li><a href="admin.html" class="mobile-link">Admin Panel</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════ -->
+    <section class="hero" id="hero" aria-label="Hero">
+      <!-- Decorative blobs -->
+      <div class="blob blob-1" aria-hidden="true"></div>
+      <div class="blob blob-2" aria-hidden="true"></div>
+      <div class="blob blob-3" aria-hidden="true"></div>
+
+      <div class="container hero-content">
+        <div class="hero-badge reveal">✦ Empowering Since 2015</div>
+        <h1 class="hero-title reveal">
+          Every Woman<br />
+          <em>Deserves to</em><br />
+          <span class="gradient-text">Rise & Shine</span>
+        </h1>
+        <p class="hero-subtitle reveal">
+          She Can Foundation empowers women and girls through education,
+          healthcare, and livelihood skills — because when a woman rises, her
+          entire community rises with her.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#programs" class="btn btn-primary btn-lg"
+            >Explore Programs</a
+          >
+          <a href="#contact" class="btn btn-outline btn-lg">Join Us Today</a>
+        </div>
+
+        <!-- Floating stats chips -->
+        <div class="hero-chips reveal">
+          <div class="chip">
+            <span class="chip-num">12,000+</span>
+            <span class="chip-label">Lives Touched</span>
+          </div>
+          <div class="chip">
+            <span class="chip-num">8</span>
+            <span class="chip-label">States Active</span>
+          </div>
+          <div class="chip">
+            <span class="chip-num">94%</span>
+            <span class="chip-label">Program Impact</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <a href="#about" class="scroll-indicator" aria-label="Scroll down">
+        <div class="scroll-dot"></div>
+      </a>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       ABOUT SECTION
+  ══════════════════════════════════════════ -->
+    <section
+      class="about section-pad"
+      id="about"
+      aria-labelledby="about-heading"
+    >
+      <div class="container about-grid">
+        <!-- Visual card -->
+        <div class="about-visual reveal">
+          <div class="about-card glass-card">
+            <div class="about-icon-row">
+              <span class="icon-circle pink"><i data-lucide="heart"></i></span>
+              <span class="icon-circle purple"><i data-lucide="star"></i></span>
+              <span class="icon-circle rose"><i data-lucide="sun"></i></span>
+            </div>
+            <blockquote class="about-quote">
+              "A woman with a voice is, by definition, a strong woman."
+            </blockquote>
+            <cite>— Melinda Gates</cite>
+          </div>
+
+          <div class="about-image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80"
+              alt="Women learning together at a She Can Foundation workshop"
+              class="about-img"
+              loading="lazy"
+            />
+            <div class="about-badge glass-card">
+              <strong>10+ Years</strong>
+              <span>of Impact</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="about-text reveal">
+          <span class="section-label">Our Story</span>
+          <h2 id="about-heading" class="section-title">
+            We Believe in the Power of <em>Every Woman</em>
+          </h2>
+          <p>
+            She Can Foundation was founded in 2015 with a single mission: to
+            ensure that no woman is left behind because of poverty, lack of
+            education, or social barriers. We work at the grassroots level
+            across 8 Indian states.
+          </p>
+          <p>
+            From providing free digital literacy classes to connecting rural
+            women with micro-enterprise funding, our programs are designed to
+            create lasting, generational change.
+          </p>
+
+          <ul class="about-pillars" role="list">
+            <li>
+              <i data-lucide="check-circle-2" class="pillar-icon"></i>
+              Survivor-led and community-rooted programs
+            </li>
+            <li>
+              <i data-lucide="check-circle-2" class="pillar-icon"></i>
+              Transparent, accountable fund utilisation
+            </li>
+            <li>
+              <i data-lucide="check-circle-2" class="pillar-icon"></i>
+              Partnerships with government & corporate CSR
+            </li>
+          </ul>
+
+          <a href="#programs" class="btn btn-primary mt-6">See Our Programs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       IMPACT STATISTICS
+  ══════════════════════════════════════════ -->
+    <section
+      class="impact section-pad"
+      id="impact"
+      aria-labelledby="impact-heading"
+    >
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">By the Numbers</span>
+          <h2 id="impact-heading" class="section-title">Our Impact Speaks</h2>
+          <p class="section-subtitle">Real change, real numbers, real lives.</p>
+        </div>
+
+        <div class="stats-grid reveal">
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="users"></i></div>
+            <div class="stat-number" data-target="12000">0</div>
+            <div class="stat-label">Women Trained</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="graduation-cap"></i></div>
+            <div class="stat-number" data-target="4800">0</div>
+            <div class="stat-label">Girls in School</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="building-2"></i></div>
+            <div class="stat-number" data-target="230">0</div>
+            <div class="stat-label">Communities Reached</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="briefcase"></i></div>
+            <div class="stat-number" data-target="3200">0</div>
+            <div class="stat-label">Livelihoods Created</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="heart-handshake"></i></div>
+            <div class="stat-number" data-target="850">0</div>
+            <div class="stat-label">Active Volunteers</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon"><i data-lucide="map-pin"></i></div>
+            <div class="stat-number" data-target="8">0</div>
+            <div class="stat-label">States Active</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       PROGRAMS / SERVICES
+  ══════════════════════════════════════════ -->
+    <section
+      class="programs section-pad"
+      id="programs"
+      aria-labelledby="programs-heading"
+    >
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">What We Do</span>
+          <h2 id="programs-heading" class="section-title">Our Programs</h2>
+          <p class="section-subtitle">
+            Four pillars, one mission — a world where every woman thrives.
+          </p>
+        </div>
+
+        <div class="programs-grid">
+          <!-- Card 1 -->
+          <article class="program-card glass-card reveal" tabindex="0">
+            <div class="program-icon icon-bg-pink">
+              <i data-lucide="book-open"></i>
+            </div>
+            <h3>Education for Girls</h3>
+            <p>
+              We sponsor school fees, uniforms, and stationery for girls from
+              below-poverty-line families, ensuring they never have to drop out.
+            </p>
+            <ul class="program-highlights" role="list">
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+                Scholarships for Class 6–12
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Bridge
+                courses for dropouts
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Digital
+                literacy workshops
+              </li>
+            </ul>
+            <a href="#contact" class="card-link"
+              >Learn more <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="program-card glass-card reveal" tabindex="0">
+            <div class="program-icon icon-bg-purple">
+              <i data-lucide="stethoscope"></i>
+            </div>
+            <h3>Women's Healthcare</h3>
+            <p>
+              Free health camps, maternal care, and mental health support
+              delivered directly to rural and peri-urban communities.
+            </p>
+            <ul class="program-highlights" role="list">
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Monthly
+                health camps
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Maternal
+                nutrition kits
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Mental
+                wellness circles
+              </li>
+            </ul>
+            <a href="#contact" class="card-link"
+              >Learn more <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="program-card glass-card reveal" tabindex="0">
+            <div class="program-icon icon-bg-rose">
+              <i data-lucide="scissors"></i>
+            </div>
+            <h3>Skills & Livelihoods</h3>
+            <p>
+              Tailoring, handicrafts, computer basics, and entrepreneurship
+              training to help women become financially independent.
+            </p>
+            <ul class="program-highlights" role="list">
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> 3-month
+                skill courses
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+                Micro-enterprise funding
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Market
+                linkage support
+              </li>
+            </ul>
+            <a href="#contact" class="card-link"
+              >Learn more <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="program-card glass-card reveal" tabindex="0">
+            <div class="program-icon icon-bg-amber">
+              <i data-lucide="scale"></i>
+            </div>
+            <h3>Legal Aid & Rights</h3>
+            <p>
+              Free legal counsel, awareness drives, and safe-space hotlines for
+              survivors of domestic violence and workplace harassment.
+            </p>
+            <ul class="program-highlights" role="list">
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Free legal
+                consultations
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> 24/7
+                helpline support
+              </li>
+              <li>
+                <i data-lucide="arrow-right" aria-hidden="true"></i> Rights
+                awareness camps
+              </li>
+            </ul>
+            <a href="#contact" class="card-link"
+              >Learn more <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       VOLUNTEER SECTION
+  ══════════════════════════════════════════ -->
+    <section
+      class="volunteer section-pad"
+      id="volunteer"
+      aria-labelledby="volunteer-heading"
+    >
+      <div class="container volunteer-grid">
+        <div class="volunteer-text reveal">
+          <span class="section-label light">Join the Movement</span>
+          <h2 id="volunteer-heading" class="section-title light">
+            Your Time Can<br /><em>Change a Life</em>
+          </h2>
+          <p class="light-p">
+            Whether you're a teacher, doctor, lawyer, designer, or just someone
+            with a compassionate heart — we have a place for you in the She Can
+            family.
+          </p>
+
+          <div class="volunteer-roles">
+            <div class="role-chip">
+              <i data-lucide="monitor"></i> Tech & Digital
+            </div>
+            <div class="role-chip"><i data-lucide="book"></i> Education</div>
+            <div class="role-chip">
+              <i data-lucide="camera"></i> Media & Comms
+            </div>
+            <div class="role-chip">
+              <i data-lucide="heart-pulse"></i> Healthcare
+            </div>
+            <div class="role-chip"><i data-lucide="gavel"></i> Legal Aid</div>
+            <div class="role-chip"><i data-lucide="truck"></i> Field Work</div>
+          </div>
+
+          <a href="#contact" class="btn btn-white mt-6">Volunteer Now ✦</a>
+        </div>
+
+        <div class="volunteer-cards reveal">
+          <div class="vol-card glass-card-dark">
+            <i data-lucide="clock"></i>
+            <h4>Flexible Hours</h4>
+            <p>
+              Weekend or weekday, in-person or remote — volunteer on your own
+              schedule.
+            </p>
+          </div>
+          <div class="vol-card glass-card-dark">
+            <i data-lucide="award"></i>
+            <h4>Certificate & LOR</h4>
+            <p>
+              Receive an official certificate and Letter of Recommendation after
+              30 hours.
+            </p>
+          </div>
+          <div class="vol-card glass-card-dark">
+            <i data-lucide="users-2"></i>
+            <h4>Community</h4>
+            <p>
+              Join 850+ volunteers and be part of a warm, driven community of
+              changemakers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       CONTACT / FORM SECTION
+  ══════════════════════════════════════════ -->
+    <section
+      class="contact section-pad"
+      id="contact"
+      aria-labelledby="contact-heading"
+    >
+      <div class="container contact-grid">
+        <!-- Left: Info -->
+        <div class="contact-info reveal">
+          <span class="section-label">Get in Touch</span>
+          <h2 id="contact-heading" class="section-title">
+            Ready to Make a Difference?
+          </h2>
+          <p>
+            Fill in the form and our team will reach out within 48 hours. We'd
+            love to have you on board!
+          </p>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <div>
+                <strong>Email</strong>
+                <span>hello@shecfoundation.org</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <div>
+                <strong>Phone / WhatsApp</strong>
+                <span>+91 98765 43210</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <div>
+                <strong>Head Office</strong>
+                <span>Pune, Maharashtra, India</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social icons -->
+          <div class="social-row" aria-label="Social media links">
+            <a href="#" aria-label="Instagram" class="social-btn"
+              ><i data-lucide="instagram"></i
+            ></a>
+            <a href="#" aria-label="Twitter / X" class="social-btn"
+              ><i data-lucide="twitter"></i
+            ></a>
+            <a href="#" aria-label="LinkedIn" class="social-btn"
+              ><i data-lucide="linkedin"></i
+            ></a>
+            <a href="#" aria-label="YouTube" class="social-btn"
+              ><i data-lucide="youtube"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form-wrap reveal">
+          <form
+            class="contact-form glass-card"
+            id="contactForm"
+            novalidate
+            aria-label="Contact and volunteer form"
+          >
+            <h3 class="form-title">Connect With Us 💜</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="full_name"
+                  >Full Name
+                  <span class="required" aria-label="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="full_name"
+                  name="full_name"
+                  placeholder="Priya Sharma"
+                  autocomplete="name"
+                  required
+                />
+                <span class="field-error" id="err-name" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="email"
+                  >Email Address
+                  <span class="required" aria-label="required">*</span></label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="priya@email.com"
+                  autocomplete="email"
+                  required
+                />
+                <span class="field-error" id="err-email" role="alert"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+91 98765 43210"
+                  autocomplete="tel"
+                />
+                <span class="field-error" id="err-phone" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  placeholder="Mumbai"
+                  autocomplete="address-level2"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="interest">Area of Interest</label>
+              <div class="select-wrap">
+                <select id="interest" name="interest">
+                  <option value="" disabled selected>Select an area…</option>
+                  <option value="Education">Education for Girls</option>
+                  <option value="Healthcare">Women's Healthcare</option>
+                  <option value="Skills">Skills & Livelihoods</option>
+                  <option value="Legal">Legal Aid & Rights</option>
+                  <option value="Tech">Tech & Digital Literacy</option>
+                  <option value="Fundraising">Fundraising & Donations</option>
+                  <option value="Communications">Media & Communications</option>
+                  <option value="Other">Other / General Enquiry</option>
+                </select>
+                <i
+                  data-lucide="chevron-down"
+                  class="select-arrow"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Tell us how you'd like to contribute, or ask us anything…"
+              ></textarea>
+              <span class="char-count" id="charCount">0 / 1000</span>
+            </div>
+
+            <!-- Submit button -->
+            <button
+              type="submit"
+              class="btn btn-primary btn-full"
+              id="submitBtn"
+            >
+              <span class="btn-text">Send Message ✦</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-top container">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo footer-logo">
+            <span class="logo-icon">✦</span>
+            <span class="logo-text">She<em>Can</em></span>
+          </a>
+          <p>
+            Empowering women and girls since 2015. Every donation, every
+            volunteer hour, every share — it all counts.
+          </p>
+          <div class="social-row">
+            <a href="#" aria-label="Instagram" class="social-btn"
+              ><i data-lucide="instagram"></i
+            ></a>
+            <a href="#" aria-label="Twitter" class="social-btn"
+              ><i data-lucide="twitter"></i
+            ></a>
+            <a href="#" aria-label="LinkedIn" class="social-btn"
+              ><i data-lucide="linkedin"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul role="list">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#impact">Our Impact</a></li>
+            <li><a href="#volunteer">Volunteer</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul role="list">
+            <li><a href="#programs">Education for Girls</a></li>
+            <li><a href="#programs">Women's Healthcare</a></li>
+            <li><a href="#programs">Skills & Livelihoods</a></li>
+            <li><a href="#programs">Legal Aid & Rights</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            <p>Pune, Maharashtra, India</p>
+            <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+            <p>
+              <a href="mailto:hello@shecfoundation.org"
+                >hello@shecfoundation.org</a
+              >
+            </p>
+          </address>
+        </div>
+      </div>
+
+      <div class="footer-bottom container">
+        <p>
+          © <span id="year"></span> She Can Foundation. All rights reserved.
+          Made with 💜 for every woman who dares to dream.
+        </p>
+        <p><a href="admin.html">Admin Panel</a></p>
+      </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════
+       TOAST NOTIFICATION
+  ══════════════════════════════════════════ -->
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <span class="toast-icon" id="toastIcon"></span>
+      <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-top" id="backTop" aria-label="Back to top">
+      <i data-lucide="chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
